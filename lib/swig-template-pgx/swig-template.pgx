@@ -1,0 +1,44 @@
+%grammar swig
+%version 0.0.1
+
+# A document is a set of top level blocks of lines (think html DIVs)
+document: top_level_block*
+
+# These are the top level blocks
+top_level_block:
+    swig |
+    anything_else
+
+looks_like_swig: 
+/<LCURLY><PERCENT>[^<PERCENT><RCURLY>]+<PERCENT><RCURLY>/
+
+anything_else: 
+    / ((:(!<looks_like_swig>)<ALL>)+) /
+
+swig: for_tag | if_tag
+
+if_tag: 
+    /<swig_left> if <expression> <swig_right> <statement> <swig_left> end ~ if <swig_right>/ 
+
+for_tag:
+    /<swig_left> for <var> in <list> <swig_right> <statement> <swig_left> end for <swig_right>/
+
+expression: /(<ANY>+)/
+
+statement: /(<ALL>+)/
+
+statement2: /(<ALL>+)/
+
+statement3: /(<ANY>+)/
+
+swig_left:
+    /~ <LCURLY><PERCENT> ~ /
+
+swig_right:
+    / ~ <PERCENT><RCURLY> ~/
+
+var:
+    /~(<ANY>+)~/
+
+list:
+    /~(<ANY>+)~/
