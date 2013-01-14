@@ -1,7 +1,25 @@
 package Swig::Template;
 our $VERSION = '0.01';
+use Moose;
+use Swig::Template::Parser;
 
-1;
+has html => ( is => 'rw', required => 1);
+has tree => ( is => 'rw');
+
+sub render {
+    my $self = shift;
+    if ( my $tree = Swig::Template::Parser->parse($self->html) ) {
+        $self->tree($self->_render($tree));
+    }
+}
+
+sub _render {
+    my ($self, $tree) = @_;
+    return $tree;
+}
+
+
+__PACKAGE__->meta->make_immutable;
 
 =head1 SYNOPSIS
 

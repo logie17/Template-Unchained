@@ -1,4 +1,4 @@
-package Swig::Template::Grammar;
+package Swig::Template::Parser::Grammar;
 use Pegex::Base;
 extends 'Pegex::Grammar';
 
@@ -10,17 +10,41 @@ sub make_tree {
     '+toprule' => 'document',
     '+version' => '0.0.1',
     'anything_else' => {
-      '.rgx' => qr/\G((?:(?!\{%[^%\}]+%\})[\s\S])+)/
+      '.rgx' => qr/\G([^\{]+)/
     },
     'document' => {
       '+min' => 0,
       '.ref' => 'top_level_block'
     },
     'for_tag' => {
-      '.rgx' => qr/\G\s*\{%\s*for\s*(.+)\s*in\s*(.+)\s*\s*%\}\s*([\s\S]+)\s*\{%\s*end\s*for\s*%\}\s*/
+      '.all' => [
+        {
+          '.rgx' => qr/\G\s*\{%\s*for\s*(.+)\s*in\s*(.+)\s*\s*%\}\s*/
+        },
+        {
+          '.ref' => 'statement'
+        },
+        {
+          '.rgx' => qr/\G\s*\{%\s*end\s*for\s*%\}\s*/
+        }
+      ]
     },
     'if_tag' => {
-      '.rgx' => qr/\G\s*\{%\s*if(.+)\s*%\}\s*([\s\S]+)\s*\{%\s*end\s*if\s*%\}\s*/
+      '.all' => [
+        {
+          '.rgx' => qr/\G\s*\{%\s*if([^\{%]+)\s*%\}\s*/
+        },
+        {
+          '.ref' => 'statement'
+        },
+        {
+          '.rgx' => qr/\G\s*\{%\s*end\s*if\s*%\}\s*/
+        }
+      ]
+    },
+    'statement' => {
+      '+min' => 0,
+      '.ref' => 'top_level_block'
     },
     'swig' => {
       '.any' => [
