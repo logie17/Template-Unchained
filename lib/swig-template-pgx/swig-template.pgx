@@ -15,7 +15,8 @@ anything_else: /([^<LCURLY>]+)/
 swig: for_tag | if_tag
 
 if_tag: 
-    /<swig_left> if <condition> <swig_right>/ statement / <swig_left> end ~ if <swig_right>/ 
+    /<swig_left> if <condition> <swig_right>/ statement / <swig_left> end ~ if <swig_right>/  |
+    /<swig_left> if <condition> <swig_right>/ statement / <swig_left> else <swig_right>/  statement / <swig_left> end ~ if <swig_right>/
 
 for_tag:
     /<swig_left> for <var> in <list> <swig_right>/ statement /<swig_left> end ~ for <swig_right>/
@@ -31,7 +32,7 @@ swig_right:
     / ~ <PERCENT><RCURLY> ~/
 
 var:
-    /~(<ANY>+)~/
+    /~(<WORD>+)~/
 
 list:
     /~(<ANY>+)~/

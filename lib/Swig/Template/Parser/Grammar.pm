@@ -19,7 +19,7 @@ sub make_tree {
     'for_tag' => {
       '.all' => [
         {
-          '.rgx' => qr/\G\s*\{%\s*for\s*(.+)\s*in\s*(.+)\s*\s*%\}\s*/
+          '.rgx' => qr/\G\s*\{%\s*for\s*(\w+)\s*in\s*(.+)\s*\s*%\}\s*/
         },
         {
           '.ref' => 'statement'
@@ -30,15 +30,38 @@ sub make_tree {
       ]
     },
     'if_tag' => {
-      '.all' => [
+      '.any' => [
         {
-          '.rgx' => qr/\G\s*\{%\s*if([^\{%]+)\s*%\}\s*/
+          '.all' => [
+            {
+              '.rgx' => qr/\G\s*\{%\s*if([^\{%]+)\s*%\}\s*/
+            },
+            {
+              '.ref' => 'statement'
+            },
+            {
+              '.rgx' => qr/\G\s*\{%\s*end\s*if\s*%\}\s*/
+            }
+          ]
         },
         {
-          '.ref' => 'statement'
-        },
-        {
-          '.rgx' => qr/\G\s*\{%\s*end\s*if\s*%\}\s*/
+          '.all' => [
+            {
+              '.rgx' => qr/\G\s*\{%\s*if([^\{%]+)\s*%\}\s*/
+            },
+            {
+              '.ref' => 'statement'
+            },
+            {
+              '.rgx' => qr/\G\s*\{%\s*else\s*%\}\s*/
+            },
+            {
+              '.ref' => 'statement'
+            },
+            {
+              '.rgx' => qr/\G\s*\{%\s*end\s*if\s*%\}\s*/
+            }
+          ]
         }
       ]
     },
