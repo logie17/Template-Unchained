@@ -16,6 +16,22 @@ sub make_tree {
       '+min' => 0,
       '.ref' => 'top_level_block'
     },
+    'extends_file' => {
+      '.rgx' => qr/\G\s*([^\"]+)\s*/
+    },
+    'extends_tag' => {
+      '.all' => [
+        {
+          '.rgx' => qr/\G\s*\{%\s*extends\s*"/
+        },
+        {
+          '.ref' => 'extends_file'
+        },
+        {
+          '.rgx' => qr/\G"\s*%\}\s*/
+        }
+      ]
+    },
     'for_tag' => {
       '.all' => [
         {
@@ -76,6 +92,12 @@ sub make_tree {
         },
         {
           '.ref' => 'if_tag'
+        },
+        {
+          '.ref' => 'extends_tag'
+        },
+        {
+          '.ref' => 'variable'
         }
       ]
     },
@@ -88,6 +110,9 @@ sub make_tree {
           '.ref' => 'anything_else'
         }
       ]
+    },
+    'variable' => {
+      '.rgx' => qr/\G\s*\{\{\s*((?:(?!\}\}).)+)\s*\}\}\s*/
     }
   }
 }

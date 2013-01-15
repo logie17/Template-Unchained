@@ -12,7 +12,10 @@ anything_else: /([^<LCURLY>]+)/
 #anything_else: 
 #    /((:(!<looks_like_swig>)<ALL>)+)/
 
-swig: for_tag | if_tag
+swig: for_tag | if_tag | extends_tag | variable
+
+extends_tag:
+    /<swig_left> extends ~ <DOUBLE>/ extends_file /<DOUBLE> <swig_right>/
 
 if_tag: 
     /<swig_left> if <condition> <swig_right>/ statement / <swig_left> end ~ if <swig_right>/  |
@@ -21,9 +24,15 @@ if_tag:
 for_tag:
     /<swig_left> for <var> in <list> <swig_right>/ statement /<swig_left> end ~ for <swig_right>/
 
+variable:
+    /~ <LCURLY><LCURLY> ~ ((:(!<RCURLY><RCURLY>)<ANY>)+) ~ <RCURLY><RCURLY>~/
+
 condition: /([^<LCURLY><PERCENT>]+)/
 
 statement: top_level_block* 
+
+extends_file: 
+    /~([^\"]+)~/
 
 swig_left:
     /~ <LCURLY><PERCENT> ~ /
