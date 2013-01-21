@@ -7,8 +7,9 @@ use Test::More tests => 2;
 use_ok('Swig::Template');
 
 my $snippet = '
-{% extends "foo.html" %}
+{% extends "t/data/extend01.html" %}
 {{ foo.bar }}
+{% block neato %}
 <html>
     <body>
     </body>
@@ -22,10 +23,30 @@ use Data::Dumper;
 warn Dumper($tree);
 is_deeply $tree, [
           [
-            {'file_name' => 'foo.html'}
+            {
+              'raw_content' => 'testing 
+  {% block foo %}
+',
+              'file_name' => 't/data/extend01.html',
+              'parsed_content' => [
+                                    'testing 
+  ',
+                                    [
+                                      'foo ',
+                                      []
+                                    ]
+                                  ]
+            }
           ],
           'foo.bar ',
-          '<html>
+          [
+            'neato ',
+            [
+              '<html>
     <body>
     </body>
-</html>'];
+</html>'
+            ]
+          ]
+];
+

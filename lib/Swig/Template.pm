@@ -11,6 +11,7 @@ sub render {
     if ( my $tree = Swig::Template::Parser->parse($self->html) ) {
         $self->tree($self->_render($tree));
     }
+    return $self;
 }
 
 sub _render {

@@ -12,6 +12,16 @@ sub make_tree {
     'anything_else' => {
       '.rgx' => qr/\G([^\{]+)/
     },
+    'block_tag' => {
+      '.all' => [
+        {
+          '.rgx' => qr/\G\s*\{%\s*block\s*(.+)\s*\s*%\}\s*/
+        },
+        {
+          '.ref' => 'statement'
+        }
+      ]
+    },
     'document' => {
       '+min' => 0,
       '.ref' => 'top_level_block'
@@ -98,6 +108,9 @@ sub make_tree {
         },
         {
           '.ref' => 'variable'
+        },
+        {
+          '.ref' => 'block_tag'
         }
       ]
     },
