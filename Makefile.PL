@@ -6,6 +6,7 @@ author   q{Logan Bell <loganbell@gmail.com>};
 license  'perl';
 
 build_requires 'Test::More';
+requires 'Files::Slurp';
 requires 'Pegex';
 requires 'Moose';
 
