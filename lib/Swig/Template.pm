@@ -2,6 +2,7 @@ package Swig::Template;
 our $VERSION = '0.01';
 use Moose;
 use Swig::Template::Parser;
+use Swig::Template::Runtime;
 
 has html => ( is => 'rw', required => 1);
 has tree => ( is => 'rw');

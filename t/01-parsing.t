@@ -25,6 +25,8 @@ my $swig = Swig::Template->new(html => $snippet, data => {});
 
 my $html = $swig->render;
 my $tree = $swig->tree;
+use Data::Dumper;
+warn Dumper($tree);
 
 is_deeply $tree, [
 '
