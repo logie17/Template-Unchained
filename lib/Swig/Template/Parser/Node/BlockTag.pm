@@ -2,14 +2,13 @@ package Swig::Template::Parser::Node::BlockTag;
 use Moose;
 
 has name => ( is => 'ro', required => 1);
-has statement => ( is => 'ro', 'required' => 1 );
-
-has runtime_blocks => (is => 'rw', isa => 'ArrayRef');
+has params => ( is => 'ro' );
+has body => ( is => 'ro', 'required' => 1 );
 
 sub eval {
   my ($self, $context) = @_;
-  #Return the block if super block exists
-  return $self->else_statement if $self->else_statement;
+  my $method = Swig::Template::Runtime::Method->new(params => $self->params, body => $self->body);
+  $context->current_class->runtime_method($self->name, $method);
 }
 
 no Moose; 1;
