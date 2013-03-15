@@ -23,13 +23,6 @@ sub got_extends_file {
 }
 
 
-sub got_if_tag {
-  my ($self, $node) = @_;
-  Swig::Template::Parser::Node::IfTag->new(condition => $node->[0], statement => $node->[1], else_statement => $node->[2]);
-}
-    
-# Todo: implement inheritance    
-#sub got_block_name { }
-#sub got_block { }
-#sub got_block_content { }
+sub got_if_tag { Swig::Template::Parser::Node::IfTag->new(condition => $_[1]->[0], statement => $_[1]->[1], else_statement => $_[1]->[2]) }
+sub got_block_tag { Swig::Template::Parser::Node::BlockTag->new(name => $_[1]->[0], statement => $_[1]->[1] }
 
