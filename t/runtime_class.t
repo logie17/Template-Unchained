@@ -18,5 +18,8 @@ is $class->lookup('bar'), 'block of super class code';
 
 isa_ok $class->new_object, 'Swig::Template::Runtime::Object';
 
+$class->runtime_method('foo', 'runtime method block');
+is $class->runtime_methods->{'foo'}, 'runtime method block';
+
 
 done_testing;

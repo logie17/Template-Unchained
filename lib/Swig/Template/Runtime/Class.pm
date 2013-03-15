@@ -3,6 +3,7 @@ use Moose;
 use Swig::Template::Runtime::Object;
 
 has runtime_blocks => ( is => 'rw', isa => 'HashRef' );
+has runtime_methods => ( is => 'rw', traits => [qw( Hash )], isa => 'HashRef', handles => { runtime_method => 'accessor' } );
 has runtime_superclass => ( is => 'rw', isa => 'Swig::Template::Runtime::Class' );
 
 sub lookup {
