@@ -1,12 +1,13 @@
 package Swig::Template::Parser::Node::ExtendTag;
+
 use Moose;
 use File::Slurp qw(read_file);
 use Carp qw(croak);
 
-has body => ( is => 'ro', 'required' => 1, builder => '_build_body' );
 has filename => ( is => 'ro', 'required' => 1, isa => 'Str' );
+has body => ( is => 'ro', builder => '_build_body', lazy => 1 );
 has class_name => ( is => 'ro', required => 1, default => sub { 'base' });
-has super_name => ( is => 'ro', required => 1 );
+has super_name => ( is => 'ro' );
 
 sub _build_body {
   my $self = shift;
@@ -24,7 +25,7 @@ sub eval {
   } 
   
   my $class_context = Swig::Template::Runtime::Context->new(current_self => $class, current_class => $class);
-  $self->body->eval($class_context)
+  $self->body->eval($class_context);
 
   return $class;
 }
@@ -33,7 +34,7 @@ sub parse_file {
   my ( $self, $file_name ) = shift; 
   if ( -e $file_name ) {
     my $raw_content = read_file($file_name);
-    my ($abs_file_name) = $file_name =~ m/([^\/]+$)/g
+    my ($abs_file_name) = $file_name =~ m/([^\/]+$)/g;
     $self->super_class($abs_file_name);
     return $raw_content;
   }
