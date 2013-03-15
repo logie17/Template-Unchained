@@ -2,8 +2,8 @@ package Swig::Template::Parser::Node::BlockTag;
 use Moose;
 
 has name => ( is => 'ro', required => 1);
-has params => ( is => 'ro' );
-has body => ( is => 'ro', 'required' => 1 );
+has params => ( is => 'ro');
+has body => ( is => 'ro', 'required' => 1);
 
 sub eval {
   my ($self, $context) = @_;
