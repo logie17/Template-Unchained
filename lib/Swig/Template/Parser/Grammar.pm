@@ -18,13 +18,43 @@ sub make_tree {
           '.rgx' => qr/\G\s*\{%\s*block\s*(.+)\s*\s*%\}\s*/
         },
         {
-          '.ref' => 'statement'
+          '+min' => 0,
+          '.ref' => 'expressions'
         }
       ]
     },
     'document' => {
       '+min' => 0,
-      '.ref' => 'top_level_block'
+      '.ref' => 'expressions'
+    },
+    'expression' => {
+      '.any' => [
+        {
+          '.ref' => 'for_tag'
+        },
+        {
+          '.ref' => 'if_tag'
+        },
+        {
+          '.ref' => 'extends_tag'
+        },
+        {
+          '.ref' => 'variable'
+        },
+        {
+          '.ref' => 'block_tag'
+        }
+      ]
+    },
+    'expressions' => {
+      '.any' => [
+        {
+          '.ref' => 'expression'
+        },
+        {
+          '.ref' => 'anything_else'
+        }
+      ]
     },
     'extends_file' => {
       '.rgx' => qr/\G\s*([^\"]+)\s*/
@@ -45,10 +75,11 @@ sub make_tree {
     'for_tag' => {
       '.all' => [
         {
-          '.rgx' => qr/\G\s*\{%\s*for\s*(\w+)\s*in\s*(.+)\s*\s*%\}\s*/
+          '.rgx' => qr/\G\s*\{%\s*for\s*(\w+)\s*in\s*(\w+)\s*\s*%\}\s*/
         },
         {
-          '.ref' => 'statement'
+          '+min' => 0,
+          '.ref' => 'expressions'
         },
         {
           '.rgx' => qr/\G\s*\{%\s*end\s*for\s*%\}\s*/
@@ -63,7 +94,8 @@ sub make_tree {
               '.rgx' => qr/\G\s*\{%\s*if([^\{%]+)\s*%\}\s*/
             },
             {
-              '.ref' => 'statement'
+              '+min' => 0,
+              '.ref' => 'expressions'
             },
             {
               '.rgx' => qr/\G\s*\{%\s*end\s*if\s*%\}\s*/
@@ -76,51 +108,20 @@ sub make_tree {
               '.rgx' => qr/\G\s*\{%\s*if([^\{%]+)\s*%\}\s*/
             },
             {
-              '.ref' => 'statement'
+              '+min' => 0,
+              '.ref' => 'expressions'
             },
             {
               '.rgx' => qr/\G\s*\{%\s*else\s*%\}\s*/
             },
             {
-              '.ref' => 'statement'
+              '+min' => 0,
+              '.ref' => 'expressions'
             },
             {
               '.rgx' => qr/\G\s*\{%\s*end\s*if\s*%\}\s*/
             }
           ]
-        }
-      ]
-    },
-    'statement' => {
-      '+min' => 0,
-      '.ref' => 'top_level_block'
-    },
-    'swig' => {
-      '.any' => [
-        {
-          '.ref' => 'for_tag'
-        },
-        {
-          '.ref' => 'if_tag'
-        },
-        {
-          '.ref' => 'extends_tag'
-        },
-        {
-          '.ref' => 'variable'
-        },
-        {
-          '.ref' => 'block_tag'
-        }
-      ]
-    },
-    'top_level_block' => {
-      '.any' => [
-        {
-          '.ref' => 'swig'
-        },
-        {
-          '.ref' => 'anything_else'
         }
       ]
     },

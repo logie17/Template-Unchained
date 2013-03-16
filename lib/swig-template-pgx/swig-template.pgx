@@ -1,35 +1,33 @@
 %grammar swig
 %version 0.0.1
 
-document: top_level_block*
+document: expressions*
 
-top_level_block:
-    swig |
+expressions:
+    expression |
     anything_else
 
 anything_else: /([^<LCURLY>]+)/
 
-swig: for_tag | if_tag | extends_tag | variable | block_tag
+expression: for_tag | if_tag | extends_tag | variable | block_tag
 
 extends_tag:
     /<swig_left> extends ~ <DOUBLE>/ extends_file /<DOUBLE> <swig_right>/
 
 if_tag: 
-    /<swig_left> if <condition> <swig_right>/ statement / <swig_left> end ~ if <swig_right>/  |
-    /<swig_left> if <condition> <swig_right>/ statement / <swig_left> else <swig_right>/  statement / <swig_left> end ~ if <swig_right>/
+    /<swig_left> if <condition> <swig_right>/ expressions* / <swig_left> end ~ if <swig_right>/  |
+    /<swig_left> if <condition> <swig_right>/ expressions* / <swig_left> else <swig_right>/  expressions* / <swig_left> end ~ if <swig_right>/
 
 for_tag:
-    /<swig_left> for <var> in <list> <swig_right>/ statement /<swig_left> end ~ for <swig_right>/
+    /<swig_left> for <var> in <list> <swig_right>/ expressions* /<swig_left> end ~ for <swig_right>/
 
 block_tag:
-    /<swig_left> block <block_name> <swig_right>/ statement
+    /<swig_left> block <block_name> <swig_right>/ expressions*
 
 variable:
     /~ <LCURLY><LCURLY> ~ ((:(!<RCURLY><RCURLY>)<ANY>)+) ~ <RCURLY><RCURLY>~/
 
 condition: /([^<LCURLY><PERCENT>]+)/
-
-statement: top_level_block* 
 
 block_name:
     /~(<ANY>+)~/
@@ -47,7 +45,5 @@ var:
     /~(<WORD>+)~/
 
 list:
-    /~(<ANY>+)~/
+    /~(<WORD>+)~/
 
-looks_like_swig: 
-/(<LCURLY><PERCENT>[^<PERCENT><RCURLY>]+<PERCENT><RCURLY>)/
