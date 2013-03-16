@@ -6,65 +6,29 @@ use Test::More tests => 2;
 
 use_ok('Swig::Template');
 
-my $snippet = '
-<html>
-    <body>
-    {% if a %} <div> 2 </div> {% end if %}
-    {% for x in foo %}
-        {% if a %} <div> 2 </div> {% end if %}
-    {% end for %}
+my $snippet;
+$snippet = '
     {% if a %} 
-        <div> 2 </div> 
-    {% else %} 
-        neato
+        <div> 2 </div>
+      {% if b %} 
+          <div> 2 </div>
+      {% end if %}
+      {% if c %} 
+          <div> 2 </div>
+      {% end if %}
     {% end if %}
-    </body>
-</html>';
+    {% if d %} 
+        <div> 2 </div>
+    {% end if %}
+';
 
+$snippet =~ s/\n//g;
+$snippet =~ s/\s\s+//g;
 my $swig = Swig::Template->new(html => $snippet, data => {});
 
 my $html = $swig->render;
 my $tree = $swig->tree;
-use Data::Dumper;
-warn Dumper($tree);
 
-is_deeply $tree, [
-'
-<html>
-    <body>
-    ',
-          [
-            ' a ',
-            [
-              '<div> 2 </div> '
-            ]
-          ],
-          [
-            [
-              'x',
-              'foo '
-            ],
-            [
-              [
-                ' a ',
-                [
-                  '<div> 2 </div> '
-                ]
-              ]
-            ]
-          ],
-          [
-            ' a ',
-            [
-              '<div> 2 </div> 
-    '
-            ],
-            [
-              'neato
-    '
-            ]
-          ],
-          '</body>
-</html>'
-];
+is_deeply $tree, bless( { 'nodes' => [ bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Swig::Template::Parser::Node::AnythingElse' ), bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Swig::Template::Parser::Node::AnythingElse' ) ], 'else_statement' => undef, 'condition' => ' b ' }, 'Swig::Template::Parser::Node::IfTag' ), bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Swig::Template::Parser::Node::AnythingElse' ) ], 'else_statement' => undef, 'condition' => ' c ' }, 'Swig::Template::Parser::Node::IfTag' ) ], 'else_statement' => undef, 'condition' => ' a ' }, 'Swig::Template::Parser::Node::IfTag' ), bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Swig::Template::Parser::Node::AnythingElse' ) ], 'else_statement' => undef, 'condition' => ' d ' }, 'Swig::Template::Parser::Node::IfTag' ) ] }, 'Swig::Template::Parser::Node::Document' );
 
+done_testing;

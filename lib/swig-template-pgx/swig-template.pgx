@@ -7,10 +7,7 @@ top_level_block:
     swig |
     anything_else
 
-
 anything_else: /([^<LCURLY>]+)/
-#anything_else: 
-#    /((:(!<looks_like_swig>)<ALL>)+)/
 
 swig: for_tag | if_tag | extends_tag | variable | block_tag
 
