@@ -9,10 +9,7 @@ sub eval {
   my ($self, $context) = @_;
   my $return_val;
   if ( eval { $self->condition->eval($context) } ) {
-    for ( @{$self->statement}) {
-      $return_val .= $_->eval($context);
-    }
-    return $return_val;
+    return $self->statement->eval($context);
   }
   return $self->else_statement if $self->else_statement;
 }
