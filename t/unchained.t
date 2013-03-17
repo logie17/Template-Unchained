@@ -8,20 +8,10 @@ use_ok('Swig::Template');
 
 my $html;
 
-$html=<<EOF;
-<html>
-  {% if foo %}
-    <div>bar</div>    
-  {% end if %}
-</html>
-EOF
+$html=' <html> {% if foo %} <div>bar</div>    {% end if %} </html>';
 
 my $swig = Swig::Template->new(html => $html, data => { foo => 1 })->render;
 
-is $swig->html,<<EOF;
-<html>
-  <div>bar</div>
-</html>
-EOF
+is $swig->html, ' <html> <div>bar</div>    </html>';
 
 done_testing;

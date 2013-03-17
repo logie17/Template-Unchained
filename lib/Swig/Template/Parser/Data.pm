@@ -9,7 +9,9 @@ use Swig::Template::Parser::Node::Document;
 use Swig::Template::Parser::Node::ForTag;
 use Swig::Template::Parser::Node::IfTag;
 use Swig::Template::Parser::Node::ExtendTag;
+use Swig::Template::Parser::Node::CallNode;
 
+sub got_identifier { Swig::Template::Parser::Node::CallNode->new( receiver => undef, method => $_[1], arguments => [] ) };
 sub got_anything_else { Swig::Template::Parser::Node::AnythingElse->new( content => $_[1] ) }
 sub got_block_tag { Swig::Template::Parser::Node::BlockTag->new(name => $_[1]->[0], body => $_[1]->[1]) }
 sub got_document { Swig::Template::Parser::Node::Document->new(nodes => $_[1]) }

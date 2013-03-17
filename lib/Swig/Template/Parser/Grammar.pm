@@ -43,16 +43,19 @@ sub make_tree {
         },
         {
           '.ref' => 'block_tag'
+        },
+        {
+          '.ref' => 'operator'
         }
       ]
     },
     'expressions' => {
       '.any' => [
         {
-          '.ref' => 'expression'
+          '.ref' => 'anything_else'
         },
         {
-          '.ref' => 'anything_else'
+          '.ref' => 'expression'
         }
       ]
     },
@@ -86,12 +89,21 @@ sub make_tree {
         }
       ]
     },
+    'identifier' => {
+      '.rgx' => qr/\G\s*(\w+)\s*/
+    },
     'if_tag' => {
       '.any' => [
         {
           '.all' => [
             {
-              '.rgx' => qr/\G\s*\{%\s*if([^\{%]+)\s*%\}\s*/
+              '.rgx' => qr/\G\s*\{%\s*if/
+            },
+            {
+              '.ref' => 'expression'
+            },
+            {
+              '.rgx' => qr/\G\s*%\}\s*/
             },
             {
               '+min' => 0,
@@ -105,7 +117,13 @@ sub make_tree {
         {
           '.all' => [
             {
-              '.rgx' => qr/\G\s*\{%\s*if([^\{%]+)\s*%\}\s*/
+              '.rgx' => qr/\G\s*\{%\s*if/
+            },
+            {
+              '.ref' => 'expression'
+            },
+            {
+              '.rgx' => qr/\G\s*%\}\s*/
             },
             {
               '+min' => 0,
@@ -124,6 +142,9 @@ sub make_tree {
           ]
         }
       ]
+    },
+    'operator' => {
+      '.ref' => 'identifier'
     },
     'variable' => {
       '.rgx' => qr/\G\s*\{\{\s*((?:(?!\}\}).)+)\s*\}\}\s*/
