@@ -78,7 +78,19 @@ sub make_tree {
     'for_tag' => {
       '.all' => [
         {
-          '.rgx' => qr/\G\s*\{%\s*for\s*(\w+)\s*in\s*(\w+)\s*\s*%\}\s*/
+          '.rgx' => qr/\G\s*\{%\s*for/
+        },
+        {
+          '.ref' => 'expression'
+        },
+        {
+          '.rgx' => qr/\Gin/
+        },
+        {
+          '.ref' => 'expression'
+        },
+        {
+          '.rgx' => qr/\G\s*%\}\s*/
         },
         {
           '+min' => 0,
@@ -147,7 +159,17 @@ sub make_tree {
       '.ref' => 'identifier'
     },
     'variable' => {
-      '.rgx' => qr/\G\s*\{\{\s*((?:(?!\}\}).)+)\s*\}\}\s*/
+      '.all' => [
+        {
+          '.rgx' => qr/\G\s*\{%\s*/
+        },
+        {
+          '.ref' => 'expression'
+        },
+        {
+          '.rgx' => qr/\G\s*%\}\s*/
+        }
+      ]
     }
   }
 }

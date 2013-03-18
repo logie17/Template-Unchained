@@ -7,7 +7,13 @@ has statement => ( is => 'ro' );
 
 sub eval {
   my ($self, $context) = @_;
-  # Need to implment
+
+  my $return_val;
+  for my $var ( @{ $self->list->eval($context) } ) {
+    $context->local($self->variable->method, $var);
+    $return_val .= $self->statement->eval($context);
+  }
+  return $return_val; 
 }
 
 no Moose; 1;

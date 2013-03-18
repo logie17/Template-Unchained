@@ -15,6 +15,10 @@ sub got_identifier {
   Swig::Template::Parser::Node::CallNode->new( receiver => undef, method => $_[1], arguments => [] );
 };
 
+sub got_variable {
+  return Swig::Template::Parser::Node::Collection->new( nodes => $_[1] );
+}
+
 sub got_anything_else { 
   Swig::Template::Parser::Node::AnythingElse->new( content => $_[1] ); 
 }
@@ -38,7 +42,7 @@ sub got_if_tag {
 }
 
 sub got_for_tag { 
-  my $statement = defined $_[1]->[2]  ? Swig::Template::Parser::Node::Collection->new(nodes => $_[1]->[2]) : undef;
-  Swig::Template::Parser::Node::ForTag->new(variable => $_[1]->[0], list => $_[1]->[1], statement => $statement );
+  my $statement = Swig::Template::Parser::Node::Collection->new( nodes => $_[1]->[2]);
+  Swig::Template::Parser::Node::ForTag->new( variable => $_[1]->[0], list => $_[1]->[1], statement => $statement );
 }
 

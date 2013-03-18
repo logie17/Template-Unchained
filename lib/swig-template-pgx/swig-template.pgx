@@ -19,7 +19,7 @@ if_tag:
     /<swig_left> if / expression / <swig_right>/ expressions* / <swig_left> else <swig_right>/  expressions* / <swig_left> end ~ if <swig_right>/
 
 for_tag:
-    /<swig_left> for <identifier> in <list> <swig_right>/ expressions* /<swig_left> end ~ for <swig_right>/
+    /<swig_left> for / expression / in / expression / <swig_right>/ expressions* /<swig_left> end ~ for <swig_right>/
 
 block_tag:
     /<swig_left> block <block_name> <swig_right>/ expressions*
@@ -28,7 +28,7 @@ operator:
    identifier 
 
 variable:
-    /~ <LCURLY><LCURLY> ~ ((:(!<RCURLY><RCURLY>)<ANY>)+) ~ <RCURLY><RCURLY>~/
+    /<swig_left>/ expression /<swig_right>/
 
 condition: /([^<LCURLY><PERCENT>]+)/
 
