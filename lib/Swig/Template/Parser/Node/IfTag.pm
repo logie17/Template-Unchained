@@ -7,7 +7,6 @@ has else_statement => ( is => 'ro' );
 
 sub eval {
   my ($self, $context) = @_;
-  my $return_val;
   if ( eval { $self->condition->eval($context) } ) {
     return $self->statement->eval($context);
   }
