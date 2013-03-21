@@ -18,7 +18,6 @@ sub render {
     return $self;
 }
 
-
 __PACKAGE__->meta->make_immutable;
 
 =head1 SYNOPSIS
