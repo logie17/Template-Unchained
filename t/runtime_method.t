@@ -17,10 +17,11 @@ $method->call($object, 1, 2);
 {
   package body;
   use Test::Most;
-  sub new { bless {}, $_[0] }
+  use Hash::MoreUtils qw(slice);
+  sub new { bless {} }
   sub eval { 
     my ($self, $context) = @_;
-    is_deeply $context->{locals}, { bar => 2, foo => 1 };
+    is_deeply({slice($context->{locals},qw(bar foo))}, { bar => 2, foo => 1 });
   }
 }
 
