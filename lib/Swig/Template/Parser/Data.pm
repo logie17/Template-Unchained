@@ -16,7 +16,11 @@ sub got_identifier {
 };
 
 sub got_variable {
-  return Swig::Template::Parser::Node::Collection->new( nodes => $_[1] );
+  my $variable = $_[1][0];
+  if ( my $filter = $_[1][1] ) {
+    $variable = Swig::Template::Parser::Node::CallNode->new( receiver => undef, method => $filter, arguments => [$variable] );
+  }
+  return Swig::Template::Parser::Node::Collection->new( nodes => [$variable] );
 }
 
 sub got_anything_else { 

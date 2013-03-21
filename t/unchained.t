@@ -5,7 +5,6 @@ use warnings;
 use Test::More;
 
 use_ok('Swig::Template');
-
 my ($html, $swig, $rhtml);
 
 $html=' <html> 
@@ -24,7 +23,7 @@ is $rhtml, '<html><div>bar</div></html>';
 $html='
   <html>
   {% for x in foo %}
-    <div>foo - {% x %}</div>
+    <div>foo - {{ x }}</div>
   {% end for %}
 ';
 
@@ -33,5 +32,16 @@ $rhtml = $swig->html;
 $rhtml =~ s/[\n\s]+//g;
 
 is $rhtml, '<html><div>foo-1</div><div>foo-2</div><div>foo-3</div>';
+
+$html='
+  <html>
+    <div>{{ x | length}}</div>
+';
+
+$swig = Swig::Template->new(html => $html, data => { x => [qw(1 2 3)] })->render;
+$rhtml = $swig->html;
+$rhtml =~ s/[\n\s]+//g;
+
+is $rhtml, '<html><div>3</div>';
 
 done_testing;

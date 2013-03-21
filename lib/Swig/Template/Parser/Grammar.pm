@@ -161,15 +161,21 @@ sub make_tree {
     'variable' => {
       '.all' => [
         {
-          '.rgx' => qr/\G\s*\{%\s*/
+          '.rgx' => qr/\G\s*\{\{\s*/
         },
         {
           '.ref' => 'expression'
         },
         {
-          '.rgx' => qr/\G\s*%\}\s*/
+          '.ref' => 'variable_filter'
+        },
+        {
+          '.rgx' => qr/\G\s*\}\}\s*/
         }
       ]
+    },
+    'variable_filter' => {
+      '.rgx' => qr/\G\s*(?:\|\s*(length))?\s*/
     }
   }
 }

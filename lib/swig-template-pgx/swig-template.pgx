@@ -28,7 +28,10 @@ operator:
    identifier 
 
 variable:
-    /<swig_left>/ expression /<swig_right>/
+    /<swig_var_left>/ expression <variable_filter>/<swig_var_right>/
+
+variable_filter:
+  /~(:<PIPE>~(length))?~/
 
 condition: /([^<LCURLY><PERCENT>]+)/
 
@@ -37,6 +40,12 @@ block_name:
 
 extends_file: 
     /~([^\"]+)~/
+
+swig_var_left:
+    /~ <LCURLY><LCURLY> ~ /
+
+swig_var_right:
+    / ~ <RCURLY><RCURLY> ~/
 
 swig_left:
     /~ <LCURLY><PERCENT> ~ /
