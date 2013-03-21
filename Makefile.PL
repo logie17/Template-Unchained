@@ -9,6 +9,7 @@ build_requires 'Test::More';
 requires 'Files::Slurp';
 requires 'Pegex';
 requires 'Moose';
+requires 'Hash::MoreUtils';
 
 test_requires 'Test::More';
 
