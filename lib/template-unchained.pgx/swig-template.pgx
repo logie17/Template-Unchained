@@ -1,0 +1,61 @@
+%grammar swig
+%version 0.0.1
+
+document: expressions*
+
+expressions:
+    anything_else |
+    expression 
+
+anything_else: /([^<LCURLY>]+)/
+
+expression: for_tag | if_tag | extends_tag | variable | block_tag  | operator
+
+extends_tag:
+    /<swig_left> extends ~ <DOUBLE>/ extends_file /<DOUBLE> <swig_right>/
+
+if_tag: 
+    /<swig_left> if / expression / <swig_right>/ expressions* / <swig_left> end ~ if <swig_right>/  |
+    /<swig_left> if / expression / <swig_right>/ expressions* / <swig_left> else <swig_right>/  expressions* / <swig_left> end ~ if <swig_right>/
+
+for_tag:
+    /<swig_left> for / expression / in / expression / <swig_right>/ expressions* /<swig_left> end ~ for <swig_right>/
+
+block_tag:
+    /<swig_left> block <block_name> <swig_right>/ expressions*
+
+operator:
+   identifier 
+
+variable:
+    /<swig_var_left>/ expression <variable_filter>/<swig_var_right>/
+
+variable_filter:
+  /~(:<PIPE>~(length))?~/
+
+condition: /([^<LCURLY><PERCENT>]+)/
+
+block_name:
+    /~(<ANY>+)~/
+
+extends_file: 
+    /~([^\"]+)~/
+
+swig_var_left:
+    /~ <LCURLY><LCURLY> ~ /
+
+swig_var_right:
+    / ~ <RCURLY><RCURLY> ~/
+
+swig_left:
+    /~ <LCURLY><PERCENT> ~ /
+
+swig_right:
+    / ~ <PERCENT><RCURLY> ~/
+
+identifier:
+    /~(<WORD>+)~/
+
+list:
+    /~(<WORD>+)~/
+
