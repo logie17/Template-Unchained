@@ -15,10 +15,10 @@ my $snippet = '
     </body>
 </html>';
 
-my $swig = Template::Unchained->new(html => $snippet, data => {});
+my $unchained = Template::Unchained->new(html => $snippet, data => {});
 
-my $html = $swig->render;
-my $tree = $swig->tree;
+my $html = $unchained->render;
+my $tree = $unchained->tree;
 use Data::Dumper;
 warn Dumper($tree);
 is_deeply $tree, [

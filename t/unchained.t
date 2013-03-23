@@ -5,7 +5,7 @@ use warnings;
 use Test::More;
 
 use_ok('Template::Unchained');
-my ($html, $swig, $rhtml);
+my ($html, $unchained, $rhtml);
 
 $html=' <html> 
   {% if foo %} 
@@ -13,8 +13,8 @@ $html=' <html>
   {% end if %}
 </html>';
 
-$swig = Template::Unchained->new(html => $html, data => { foo => 1 })->render;
-$rhtml = $swig->html;
+$unchained = Template::Unchained->new(html => $html, data => { foo => 1 })->render;
+$rhtml = $unchained->html;
 
 $rhtml =~ s/[\n\s]+//g;
 
@@ -27,8 +27,8 @@ $html='
   {% end for %}
 ';
 
-$swig = Template::Unchained->new(html => $html, data => { foo => [qw(1 2 3)] })->render;
-$rhtml = $swig->html;
+$unchained = Template::Unchained->new(html => $html, data => { foo => [qw(1 2 3)] })->render;
+$rhtml = $unchained->html;
 $rhtml =~ s/[\n\s]+//g;
 
 is $rhtml, '<html><div>foo-1</div><div>foo-2</div><div>foo-3</div>';
@@ -38,8 +38,8 @@ $html='
     <div>{{ x | length}}</div>
 ';
 
-$swig = Template::Unchained->new(html => $html, data => { x => [qw(1 2 3)] })->render;
-$rhtml = $swig->html;
+$unchained = Template::Unchained->new(html => $html, data => { x => [qw(1 2 3)] })->render;
+$rhtml = $unchained->html;
 $rhtml =~ s/[\n\s]+//g;
 
 is $rhtml, '<html><div>3</div>';

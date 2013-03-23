@@ -24,10 +24,10 @@ $snippet = '
 
 $snippet =~ s/\n//g;
 $snippet =~ s/\s\s+//g;
-my $swig = Template::Unchained->new(html => $snippet, data => {});
+my $unchained = Template::Unchained->new(html => $snippet, data => {});
 
-my $html = $swig->render;
-my $tree = $swig->tree;
+my $html = $unchained->render;
+my $tree = $unchained->tree;
 
 is_deeply $tree, bless( { 'nodes' => [ bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Template::Unchained::Parser::Node::AnythingElse' ), bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Template::Unchained::Parser::Node::AnythingElse' ) ], 'else_statement' => undef, 'condition' => bless( { 'receiver' => undef, 'arguments' => [], 'method' => 'b' }, 'Template::Unchained::Parser::Node::CallNode' ) }, 'Template::Unchained::Parser::Node::IfTag' ), bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Template::Unchained::Parser::Node::AnythingElse' ) ], 'else_statement' => undef, 'condition' => bless( { 'receiver' => undef, 'arguments' => [], 'method' => 'c' }, 'Template::Unchained::Parser::Node::CallNode' ) }, 'Template::Unchained::Parser::Node::IfTag' ) ], 'else_statement' => undef, 'condition' => bless( { 'receiver' => undef, 'arguments' => [], 'method' => 'a' }, 'Template::Unchained::Parser::Node::CallNode' ) }, 'Template::Unchained::Parser::Node::IfTag' ), bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Template::Unchained::Parser::Node::AnythingElse' ) ], 'else_statement' => undef, 'condition' => bless( { 'receiver' => undef, 'arguments' => [], 'method' => 'd' }, 'Template::Unchained::Parser::Node::CallNode' ) }, 'Template::Unchained::Parser::Node::IfTag' ) ] }, 'Template::Unchained::Parser::Node::Document' );
 
@@ -50,10 +50,10 @@ $snippet = '
 
 $snippet =~ s/\n//g;
 $snippet =~ s/\s\s+//g;
-$swig = Template::Unchained->new(html => $snippet, data => {});
+$unchained = Template::Unchained->new(html => $snippet, data => {});
 
-$html = $swig->render;
-$tree = $swig->tree;
+$html = $unchained->render;
+$tree = $unchained->tree;
 
 is_deeply $tree,bless( { 'nodes' => [ bless( { 'statement' => undef, 'variable' => [ 'a', 'foo' ], 'list' => [ bless( { 'content' => '<div> 2 </div>' }, 'Template::Unchained::Parser::Node::AnythingElse' ), bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Template::Unchained::Parser::Node::AnythingElse' ) ], 'else_statement' => undef, 'condition' => bless( { 'receiver' => undef, 'arguments' => [], 'method' => 'b' }, 'Template::Unchained::Parser::Node::CallNode' ) }, 'Template::Unchained::Parser::Node::IfTag' ), bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Template::Unchained::Parser::Node::AnythingElse' ) ], 'else_statement' => undef, 'condition' => bless( { 'receiver' => undef, 'arguments' => [], 'method' => 'c' }, 'Template::Unchained::Parser::Node::CallNode' ) }, 'Template::Unchained::Parser::Node::IfTag' ) ] }, 'Template::Unchained::Parser::Node::ForTag' ), bless( { 'statement' => [ bless( { 'content' => '<div> 2 </div>' }, 'Template::Unchained::Parser::Node::AnythingElse' ) ], 'else_statement' => [ bless( { 'content' => 'wow' }, 'Template::Unchained::Parser::Node::AnythingElse' ) ], 'condition' => bless( { 'receiver' => undef, 'arguments' => [], 'method' => 'd' }, 'Template::Unchained::Parser::Node::CallNode' ) }, 'Template::Unchained::Parser::Node::IfTag' ) ] }, 'Template::Unchained::Parser::Node::Document' );
 

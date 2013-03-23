@@ -2,11 +2,11 @@ package Template::Unchained::Parser::Grammar;
 use Pegex::Base;
 extends 'Pegex::Grammar';
 
-use constant file => 'lib/swig-template-pgx/swig-template.pgx';
+use constant file => 'lib/template-unchained.pgx/template-unchained.pgx';
 
 sub make_tree {
   {
-    '+grammar' => 'swig',
+    '+grammar' => 'unchained',
     '+toprule' => 'document',
     '+version' => '0.0.1',
     'anything_else' => {
