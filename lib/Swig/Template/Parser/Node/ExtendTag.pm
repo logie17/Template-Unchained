@@ -1,4 +1,4 @@
-package Swig::Template::Parser::Node::ExtendTag;
+package Template::Unchained::Parser::Node::ExtendTag;
 
 use Moose;
 use File::Slurp qw(read_file);
@@ -20,11 +20,11 @@ sub eval {
   my $class = $context->classes->{$self->name};
 
   unless ( $class ) {
-    $class = Swig::Template::Runtime::Class->new;
+    $class = Template::Unchained::Runtime::Class->new;
     $context->class($self->name, $class);
   } 
   
-  my $class_context = Swig::Template::Runtime::Context->new(current_self => $class, current_class => $class);
+  my $class_context = Template::Unchained::Runtime::Context->new(current_self => $class, current_class => $class);
   $self->body->eval($class_context);
 
   return $class;

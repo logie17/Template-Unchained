@@ -1,6 +1,6 @@
-package Swig::Template::Runtime;
+package Template::Unchained::Runtime;
 use Moose;
 
-has context => ( is => 'ro', required => 1, default => sub { Swig::Template::RunTime::Context->new } );
+has context => ( is => 'ro', required => 1, default => sub { Template::Unchained::RunTime::Context->new } );
 
 no Moose; 1;

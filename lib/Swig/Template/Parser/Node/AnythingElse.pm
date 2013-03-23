@@ -1,4 +1,4 @@
-package Swig::Template::Parser::Node::AnythingElse;
+package Template::Unchained::Parser::Node::AnythingElse;
 use Moose;
 
 has content => ( is => 'ro', required => 1);

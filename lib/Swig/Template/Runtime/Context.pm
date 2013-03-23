@@ -1,4 +1,4 @@
-package Swig::Template::Runtime::Context;
+package Template::Unchained::Runtime::Context;
 use Moose;
 
 has receiver => ( is => 'rw' );

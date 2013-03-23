@@ -1,7 +1,7 @@
-package Swig::Template::Runtime::Object;
+package Template::Unchained::Runtime::Object;
 use Moose;
 
-has class => ( is => 'rw', isa => 'Swig::Template::Runtime::Class', required => 1 );
+has class => ( is => 'rw', isa => 'Template::Unchained::Runtime::Class', required => 1 );
 
 sub call {
   my ($self, $method, @args) = @_;

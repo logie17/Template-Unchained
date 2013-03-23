@@ -4,19 +4,19 @@ use strict;
 use warnings;
 use Test::More;
 
-use_ok('Swig::Template::Runtime::Class');
+use_ok('Template::Unchained::Runtime::Class');
 
 my $class;
-$class = Swig::Template::Runtime::Class->new(runtime_blocks => { foo => 'block of code' });
+$class = Template::Unchained::Runtime::Class->new(runtime_blocks => { foo => 'block of code' });
 is $class->lookup('foo'), 'block of code';
 
-my $superclass = Swig::Template::Runtime::Class->new(runtime_blocks => { bar => 'block of super class code'});
+my $superclass = Template::Unchained::Runtime::Class->new(runtime_blocks => { bar => 'block of super class code'});
 is $superclass->lookup('bar'), 'block of super class code';
 is $class->lookup('bar'), undef;
 $class->runtime_superclass($superclass);
 is $class->lookup('bar'), 'block of super class code';
 
-isa_ok $class->new_object, 'Swig::Template::Runtime::Object';
+isa_ok $class->new_object, 'Template::Unchained::Runtime::Object';
 
 $class->runtime_method('foo', 'runtime method block');
 is $class->runtime_methods->{'foo'}, 'runtime method block';

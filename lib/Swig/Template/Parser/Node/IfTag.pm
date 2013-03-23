@@ -1,4 +1,4 @@
-package Swig::Template::Parser::Node::IfTag;
+package Template::Unchained::Parser::Node::IfTag;
 use Moose;
 
 has condition => ( is => 'ro', required => 1);

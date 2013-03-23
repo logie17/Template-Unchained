@@ -1,4 +1,4 @@
-package Swig::Template::Parser::Node::ForTag;
+package Template::Unchained::Parser::Node::ForTag;
 use Moose;
 
 has variable => ( is => 'ro', required => 1);

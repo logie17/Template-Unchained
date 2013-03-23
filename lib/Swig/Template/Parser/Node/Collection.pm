@@ -1,4 +1,4 @@
-package Swig::Template::Parser::Node::Collection;
+package Template::Unchained::Parser::Node::Collection;
 use Moose;
 
 has nodes => ( is => 'rw', isa => 'ArrayRef' );

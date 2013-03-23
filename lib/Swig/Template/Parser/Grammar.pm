@@ -1,4 +1,4 @@
-package Swig::Template::Parser::Grammar;
+package Template::Unchained::Parser::Grammar;
 use Pegex::Base;
 extends 'Pegex::Grammar';
 

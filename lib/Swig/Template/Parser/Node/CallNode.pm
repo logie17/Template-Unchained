@@ -1,4 +1,4 @@
-package Swig::Template::Parser::Node::CallNode;
+package Template::Unchained::Parser::Node::CallNode;
 use Moose;
 
 has receiver => ( is => 'rw');

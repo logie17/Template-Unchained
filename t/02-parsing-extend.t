@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Test::More;
 
-use_ok('Swig::Template');
+use_ok('Template::Unchained');
 
 my $snippet = '
 {% extends "t/data/extend01.html" %}
@@ -15,7 +15,7 @@ my $snippet = '
     </body>
 </html>';
 
-my $swig = Swig::Template->new(html => $snippet, data => {});
+my $swig = Template::Unchained->new(html => $snippet, data => {});
 
 my $html = $swig->render;
 my $tree = $swig->tree;

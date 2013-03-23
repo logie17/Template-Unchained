@@ -1,8 +1,8 @@
-package Swig::Template;
+package Template::Unchained;
 our $VERSION = '0.01';
 use Moose;
-use Swig::Template::Parser;
-use Swig::Template::Runtime::Context;
+use Template::Unchained::Parser;
+use Template::Unchained::Runtime::Context;
 
 has html => ( is => 'rw', required => 1);
 has data => ( is => 'rw');
@@ -10,9 +10,9 @@ has tree => ( is => 'rw');
 
 sub render {
     my $self = shift;
-    if ( my $tree = Swig::Template::Parser->parse($self->html) ) {
+    if ( my $tree = Template::Unchained::Parser->parse($self->html) ) {
         $self->tree($tree);
-        my $context = Swig::Template::Runtime::Context->new( locals => $self->data  );
+        my $context = Template::Unchained::Runtime::Context->new( locals => $self->data  );
         $self->html($tree->eval($context));
     }
     return $self;
@@ -22,8 +22,8 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 SYNOPSIS
 
-    my $goodness = Swig::Template->run;
+    my $goodness = Template::Unchained->run;
 
 =head1 DESCRIPTION
 
-Swig::Template
+Template::Unchained

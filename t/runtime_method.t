@@ -4,12 +4,12 @@ use strict;
 use warnings;
 use Test::Most;
 
-use_ok('Swig::Template::Runtime::Method');
-use_ok('Swig::Template::Runtime::Object');
-use_ok('Swig::Template::Runtime::Class');
+use_ok('Template::Unchained::Runtime::Method');
+use_ok('Template::Unchained::Runtime::Object');
+use_ok('Template::Unchained::Runtime::Class');
 
-my $object = Swig::Template::Runtime::Object->new(class => Swig::Template::Runtime::Class->new );
-my $method = Swig::Template::Runtime::Method->new(params => [ qw(foo bar) ], body => body->new);
+my $object = Template::Unchained::Runtime::Object->new(class => Template::Unchained::Runtime::Class->new );
+my $method = Template::Unchained::Runtime::Method->new(params => [ qw(foo bar) ], body => body->new);
 
 $method->call($object, 1, 2); 
 

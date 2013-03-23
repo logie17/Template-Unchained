@@ -1,7 +1,7 @@
 use inc::Module::Install;
 
-name     'Swig-Template';
-all_from 'lib/Swig/Template.pm';
+name     'Template-Unchained';
+all_from 'lib/Template/Unchained.pm';
 author   q{Logan Bell <loganbell@gmail.com>};
 license  'perl';
 

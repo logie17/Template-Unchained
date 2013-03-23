@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Test::More;
 
-use_ok('Swig::Template');
+use_ok('Template::Unchained');
 my ($html, $swig, $rhtml);
 
 $html=' <html> 
@@ -13,7 +13,7 @@ $html=' <html>
   {% end if %}
 </html>';
 
-$swig = Swig::Template->new(html => $html, data => { foo => 1 })->render;
+$swig = Template::Unchained->new(html => $html, data => { foo => 1 })->render;
 $rhtml = $swig->html;
 
 $rhtml =~ s/[\n\s]+//g;
@@ -27,7 +27,7 @@ $html='
   {% end for %}
 ';
 
-$swig = Swig::Template->new(html => $html, data => { foo => [qw(1 2 3)] })->render;
+$swig = Template::Unchained->new(html => $html, data => { foo => [qw(1 2 3)] })->render;
 $rhtml = $swig->html;
 $rhtml =~ s/[\n\s]+//g;
 
@@ -38,7 +38,7 @@ $html='
     <div>{{ x | length}}</div>
 ';
 
-$swig = Swig::Template->new(html => $html, data => { x => [qw(1 2 3)] })->render;
+$swig = Template::Unchained->new(html => $html, data => { x => [qw(1 2 3)] })->render;
 $rhtml = $swig->html;
 $rhtml =~ s/[\n\s]+//g;
 
