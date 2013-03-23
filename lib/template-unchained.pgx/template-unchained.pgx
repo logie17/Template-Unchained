@@ -1,4 +1,4 @@
-%grammar swig
+%grammar unchained 
 %version 0.0.1
 
 document: expressions*
@@ -12,23 +12,23 @@ anything_else: /([^<LCURLY>]+)/
 expression: for_tag | if_tag | extends_tag | variable | block_tag  | operator
 
 extends_tag:
-    /<swig_left> extends ~ <DOUBLE>/ extends_file /<DOUBLE> <swig_right>/
+    /<unchained_left> extends ~ <DOUBLE>/ extends_file /<DOUBLE> <unchained_right>/
 
 if_tag: 
-    /<swig_left> if / expression / <swig_right>/ expressions* / <swig_left> end ~ if <swig_right>/  |
-    /<swig_left> if / expression / <swig_right>/ expressions* / <swig_left> else <swig_right>/  expressions* / <swig_left> end ~ if <swig_right>/
+    /<unchained_left> if / expression / <unchained_right>/ expressions* / <unchained_left> end ~ if <unchained_right>/  |
+    /<unchained_left> if / expression / <unchained_right>/ expressions* / <unchained_left> else <unchained_right>/  expressions* / <unchained_left> end ~ if <unchained_right>/
 
 for_tag:
-    /<swig_left> for / expression / in / expression / <swig_right>/ expressions* /<swig_left> end ~ for <swig_right>/
+    /<unchained_left> for / expression / in / expression / <unchained_right>/ expressions* /<unchained_left> end ~ for <unchained_right>/
 
 block_tag:
-    /<swig_left> block <block_name> <swig_right>/ expressions*
+    /<unchained_left> block <block_name> <unchained_right>/ expressions*
 
 operator:
    identifier 
 
 variable:
-    /<swig_var_left>/ expression <variable_filter>/<swig_var_right>/
+    /<unchained_var_left>/ expression <variable_filter>/<unchained_var_right>/
 
 variable_filter:
   /~(:<PIPE>~(length))?~/
@@ -41,16 +41,16 @@ block_name:
 extends_file: 
     /~([^\"]+)~/
 
-swig_var_left:
+unchained_var_left:
     /~ <LCURLY><LCURLY> ~ /
 
-swig_var_right:
+unchained_var_right:
     / ~ <RCURLY><RCURLY> ~/
 
-swig_left:
+unchained_left:
     /~ <LCURLY><PERCENT> ~ /
 
-swig_right:
+unchained_right:
     / ~ <PERCENT><RCURLY> ~/
 
 identifier:
