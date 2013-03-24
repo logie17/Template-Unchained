@@ -44,4 +44,12 @@ $rhtml =~ s/[\n\s]+//g;
 
 is $rhtml, '<html><div>3</div>';
 
+$html = '{% extends "t/data/parent1.html" %}';
+
+$unchained = Template::Unchained->new(html => $html, data => {})->render;
+$rhtml = $unchained->html;
+$rhtml =~ s/[\n\s]+//g;
+
+is $rhtml, '<html><title>ParentTitle</title><body>foobar</body></html>';
+
 done_testing;

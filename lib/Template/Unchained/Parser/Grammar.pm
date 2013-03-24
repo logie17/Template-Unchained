@@ -15,11 +15,20 @@ sub make_tree {
     'block_tag' => {
       '.all' => [
         {
-          '.rgx' => qr/\G\s*\{%\s*block\s*(.+)\s*\s*%\}\s*/
+          '.rgx' => qr/\G\s*\{%\s*block/
+        },
+        {
+          '.ref' => 'expression'
+        },
+        {
+          '.rgx' => qr/\G\s*%\}\s*/
         },
         {
           '+min' => 0,
           '.ref' => 'expressions'
+        },
+        {
+          '.rgx' => qr/\G\s*\{%\s*end\s*block\s*%\}\s*/
         }
       ]
     },

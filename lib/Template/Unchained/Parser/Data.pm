@@ -28,11 +28,16 @@ sub got_anything_else {
 }
 
 sub got_block_tag { 
-  Template::Unchained::Parser::Node::BlockTag->new(name => $_[1]->[0], body => $_[1]->[1]); 
+  my $body = Template::Unchained::Parser::Node::Collection->new(nodes => $_[1][1]);
+  Template::Unchained::Parser::Node::BlockTag->new(name => $_[1]->[0], body => $body); 
 }
 
 sub got_document {
   Template::Unchained::Parser::Node::Collection->new(nodes => $_[1]); 
+}
+
+sub got_extends_tag {
+  Template::Unchained::Parser::Node::Collection->new(nodes => $_[1]);
 }
 
 sub got_extends_file { 

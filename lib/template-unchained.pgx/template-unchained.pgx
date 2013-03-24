@@ -22,7 +22,7 @@ for_tag:
     /<unchained_left> for / expression / in / expression / <unchained_right>/ expressions* /<unchained_left> end ~ for <unchained_right>/
 
 block_tag:
-    /<unchained_left> block <block_name> <unchained_right>/ expressions*
+    /<unchained_left> block / expression / <unchained_right>/ expressions* / <unchained_left> end ~ block <unchained_right>/
 
 operator:
    identifier 
