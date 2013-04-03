@@ -29,7 +29,7 @@ sub got_anything_else {
 
 sub got_block_tag { 
   my $body = Template::Unchained::Parser::Node::Collection->new(nodes => $_[1][1]);
-  Template::Unchained::Parser::Node::BlockTag->new(name => $_[1]->[0], body => $body); 
+  Template::Unchained::Parser::Node::BlockTag->new(name => $_[1][0], body => $body); 
 }
 
 sub got_document {
